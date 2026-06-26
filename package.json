@@ -1,0 +1,28 @@
+{
+  "name": "@mcptoolshop/sprite-motion-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that productizes the sprite-motion rigged-character pipeline: decimate → UniRig → propose-roles → pose → rigidify → attach-weapon → export → render → cross-family vision jury, with batch_roster.",
+  "type": "module",
+  "bin": {
+    "sprite-motion-mcp": "dist/index.js"
+  },
+  "files": ["dist/", "pipeline/", "poses/", "README.md", "SECURITY.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "verify": "tsc --noEmit && node dist/index.js --selftest",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["mcp", "blender", "unirig", "rigging", "game-assets", "2.5d", "sprite", "posing", "sprite-motion"],
+  "author": "mcp-tool-shop",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}

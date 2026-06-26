@@ -1,0 +1,149 @@
+{
+  "format": "sprite-motion.pose",
+  "version": 1,
+  "name": "anticipation",
+  "space": "world-axis-delta",
+  "roleRotations": {
+    "spine": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 10
+      },
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": -22
+      }
+    ],
+    "chest": [
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": -22
+      }
+    ],
+    "neck": [
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": 18
+      }
+    ],
+    "upperArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -55
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": 28
+      }
+    ],
+    "foreArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -60
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": -25
+      }
+    ],
+    "upperArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -48
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": -35
+      }
+    ],
+    "foreArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -55
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": 30
+      }
+    ],
+    "upperLeg.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 12
+      }
+    ],
+    "lowerLeg.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 18
+      }
+    ],
+    "upperLeg.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -10
+      }
+    ]
+  },
+  "note": "anticipation combat key-pose. Role-keyed world-axis deltas (Blender Z-up). Apply to any tagged character via its roleMap. ROM <=85deg (clean-LBS). Grounded in readouts sprite-motion-knowledge wave 5."
+}

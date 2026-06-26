@@ -1,0 +1,143 @@
+{
+  "format": "sprite-motion.pose",
+  "version": 1,
+  "name": "recovery",
+  "space": "world-axis-delta",
+  "roleRotations": {
+    "spine": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -18
+      },
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": 18
+      }
+    ],
+    "chest": [
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": 16
+      }
+    ],
+    "neck": [
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": -8
+      }
+    ],
+    "upperArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -4
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": 16
+      }
+    ],
+    "foreArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -32
+      }
+    ],
+    "upperArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -14
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": -22
+      }
+    ],
+    "foreArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -26
+      }
+    ],
+    "upperLeg.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -20
+      }
+    ],
+    "lowerLeg.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 24
+      }
+    ],
+    "upperLeg.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 12
+      }
+    ],
+    "lowerLeg.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 6
+      }
+    ]
+  },
+  "note": "recovery combat key-pose. Role-keyed world-axis deltas (Blender Z-up). Apply to any tagged character via its roleMap. ROM <=85deg (clean-LBS). Grounded in readouts sprite-motion-knowledge wave 5."
+}

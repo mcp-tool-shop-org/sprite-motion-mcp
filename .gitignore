@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.tsbuildinfo
+# pipeline run artifacts (never commit big binaries / renders)
+*.glb
+*.fbx
+*.png
+_out/
+_runs/
+.DS_Store
+*.log

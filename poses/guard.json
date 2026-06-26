@@ -1,0 +1,91 @@
+{
+  "format": "sprite-motion.pose",
+  "version": 1,
+  "name": "guard",
+  "space": "world-axis-delta",
+  "roleRotations": {
+    "spine": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -8
+      }
+    ],
+    "upperArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -50
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": 30
+      }
+    ],
+    "foreArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -70
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": -40
+      }
+    ],
+    "upperArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -50
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": -30
+      }
+    ],
+    "foreArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -70
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": 40
+      }
+    ]
+  },
+  "note": "guard combat key-pose. Role-keyed world-axis deltas (Blender Z-up). Apply to any tagged character via its roleMap. ROM <=85deg (clean-LBS). Grounded in readouts sprite-motion-knowledge wave 5."
+}

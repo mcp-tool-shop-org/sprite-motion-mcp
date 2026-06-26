@@ -1,0 +1,125 @@
+{
+  "format": "sprite-motion.pose",
+  "version": 1,
+  "name": "idle",
+  "space": "world-axis-delta",
+  "roleRotations": {
+    "spine": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -5
+      }
+    ],
+    "chest": [
+      {
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "deg": 5
+      }
+    ],
+    "upperArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -10
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": 6
+      }
+    ],
+    "foreArm.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -24
+      }
+    ],
+    "upperArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -6
+      },
+      {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "deg": -4
+      }
+    ],
+    "foreArm.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -15
+      }
+    ],
+    "upperLeg.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": -5
+      }
+    ],
+    "lowerLeg.R": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 13
+      }
+    ],
+    "upperLeg.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 3
+      }
+    ],
+    "lowerLeg.L": [
+      {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "deg": 9
+      }
+    ]
+  },
+  "note": "idle combat key-pose. Role-keyed world-axis deltas (Blender Z-up). Apply to any tagged character via its roleMap. ROM <=85deg (clean-LBS). Grounded in readouts sprite-motion-knowledge wave 5."
+}
