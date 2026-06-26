@@ -132,6 +132,45 @@ def place_v4(w, arm, assets):
     bpy.ops.object.parent_set(type='BONE', keep_transform=True)         # keep_transform -> Blender computes the bone-local offset; no bone-axis math
     print(f"[placed v4] {asset} -> {bone}  scale={s}  grip={[round(x,4) for x in gripw]} tip={[round(x,4) for x in tipw]}", flush=True)
 
+def place_on_hand(w, arm, assets, rolemap, figureH):
+    """Place a weapon in the POSED hand (the Claude/MCP pose+weapon primitive — no editor rootTransform).
+    Reads the POSED hand + finger bones for the palm centre and a grip axis (forearm->hand direction),
+    aligns the weapon's long axis (haft) to it, drops the grip at the palm, and parents to the hand bone
+    so the weapon RIDES the pose. Weapon spec: {asset, grip:{handRole|handBone, lengthScale?, gripFrac?, axis?, flip?}}."""
+    asset = w["asset"]; path = assets.get(asset); g = w["grip"]
+    hb = g.get("handBone") or rolemap.get(g.get("handRole", ""))
+    if not path or not os.path.exists(path): print(f"[skip] no GLB for '{asset}'", flush=True); return
+    if not hb or hb not in arm.pose.bones: print(f"[skip] hand bone '{hb}' absent", flush=True); return
+    bpy.context.view_layer.update()
+    M = arm.matrix_world; pbh = arm.pose.bones[hb]
+    wrist = M @ pbh.head
+    mcp = [M @ arm.pose.bones[c.name].head for c in arm.data.bones[hb].children if c.name in arm.pose.bones]
+    palm = (wrist + sum(mcp, V())) / (1 + len(mcp)) if mcp else (M @ pbh.tail)   # posed palm centre
+    parent = arm.data.bones[hb].parent
+    grip_axis = ((wrist - (M @ arm.pose.bones[parent.name].head)).normalized()
+                 if parent and parent.name in arm.pose.bones else (M @ pbh.tail - wrist).normalized())
+    if g.get("axis"): grip_axis = V(g["axis"]).normalized()                      # optional world-axis override
+    if g.get("flip"): grip_axis = -grip_axis
+    hal = _import_weapon(asset, path)                                            # imported in Blender Z-up
+    c = co(hal); la = int(np.argmax(c.max(0) - c.min(0))); perp = [i for i in range(3) if i != la]
+    cx0 = (c[:, perp[0]].min() + c[:, perp[0]].max()) / 2; cy0 = (c[:, perp[1]].min() + c[:, perp[1]].max()) / 2
+    zmin = c[:, la].min()
+    for v in hal.data.vertices: v.co[perp[0]] -= cx0; v.co[perp[1]] -= cy0; v.co[la] -= zmin   # haft on the long axis from 0
+    hal.data.update(); c = co(hal); L = c[:, la].max() - c[:, la].min()
+    s = (float(g.get("lengthScale", 1.15)) * figureH) / max(1e-6, L)
+    for v in hal.data.vertices: v.co *= s
+    e = V((0, 0, 0)); e[la] = 1.0; R = e.rotation_difference(grip_axis).to_matrix().to_4x4()   # long-axis -> grip axis
+    c = co(hal); L = c[:, la].max() - c[:, la].min()
+    gp = V((0, 0, 0)); gp[la] = c[:, la].min() + float(g.get("gripFrac", 0.25)) * L              # grip point up the haft
+    hal.matrix_world = mathutils.Matrix.Translation(palm) @ R @ mathutils.Matrix.Translation(-gp)
+    bpy.context.view_layer.update()
+    gripw = palm; tipw = max((hal.matrix_world @ v.co for v in hal.data.vertices), key=lambda p: (p - gripw).length)
+    gn = _build_grip_chain(arm, hb, asset, gripw, tipw)
+    bpy.ops.object.select_all(action='DESELECT'); hal.select_set(True); arm.select_set(True); bpy.context.view_layer.objects.active = arm
+    arm.data.bones.active = arm.data.bones[gn]
+    bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+    print(f"[placed on-hand] {asset} -> {hb}  palm={[round(x,3) for x in palm]} axis={[round(x,2) for x in grip_axis]}", flush=True)
+
 def _bone_depth(arm, name):
     d = 0; b = arm.data.bones.get(name)
     while b is not None and b.parent is not None: b = b.parent; d += 1
@@ -228,7 +267,9 @@ def rig_character(char_glb, block, assets, out):
                 try: bpy.ops.object.modifier_apply(modifier=_am[0].name)   #   at bent joints (Kavan et al. 2008, DOI 10.1145/1409625.1409627). UniRig emits standard LBS
                 except Exception as e: print(f"[pose] modifier_apply warn: {e}", flush=True)   #   weights (arXiv:2504.12451), so the raw bake tears the elbow past ~85deg; ROM is capped in the pose too.
     for w in block.get("weapons", []):
-        place_v4(w, arm, assets) if "rootTransform" in w else place(w, arm, figureH, assets)
+        if "grip" in w: place_on_hand(w, arm, assets, block.get("roleMap", {}), figureH)   # Claude/MCP: weapon rides the POSED hand
+        elif "rootTransform" in w: place_v4(w, arm, assets)
+        else: place(w, arm, figureH, assets)
     for o in [m for m in list(bpy.context.scene.objects) if m.type == "MESH" and len(m.data.vertices) < 300]:
         bb = [o.matrix_world @ V(c) for c in o.bound_box]
         if max(max(p[i] for p in bb) - min(p[i] for p in bb) for i in range(3)) > 1.4: bpy.data.objects.remove(o, do_unlink=True)
